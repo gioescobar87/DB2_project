@@ -1,3 +1,4 @@
 git status
 git add [name_of_file.ext]
-git commit [name_of_file.ext] -m "Añadimos los códigos de GIT"
+git commit [name_of_file.ext] -m "Comentario breve"
+git push
