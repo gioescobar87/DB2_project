@@ -5,7 +5,9 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { CoreModule } from './core/core.module';
 import { SharedModule } from './shared/shared.module';
-import { DdlModule } from './ddl/ddl.module';
+import { CreateTableModule } from './create-table/create-table.module';
+import { AlterTableModule } from './alter-table/alter-table.module';
+import { DropTableModule } from './drop-table/drop-table.module';
 
 @NgModule({
   declarations: [
@@ -16,7 +18,9 @@ import { DdlModule } from './ddl/ddl.module';
     AppRoutingModule,
     CoreModule,
     SharedModule,
-    DdlModule
+    CreateTableModule,
+    AlterTableModule,
+    DropTableModule
   ],
   providers: [
     provideClientHydration()

@@ -2,44 +2,18 @@
   <div class="container-fluid">
     <a class="navbar-brand">Gestor de base de datos</a>
     <ul class="navbar-nav me-auto">
-      <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
-          aria-expanded="false">
-          DDL
-        </a>
-        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-          @for(item of dropdownDDL; track item){
-          <li><a class="dropdown-item" href="#">{{item}}</a></li>}
-        </ul>
-      </li>
-      <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
-          aria-expanded="false">
-          DML
-        </a>
-        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-          @for(item of dropdownDML; track item){
-          <li><a class="dropdown-item" href="#">{{item}}</a></li>}
-        </ul>
-      </li>
-      <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
-          aria-expanded="false">DCL</a>
-        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-          @for(item of dropdownDCL; track item){
-          <li><a class="dropdown-item" href="#">{{item}}</a></li>
-          }
-        </ul>
-      </li>
-      <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
-          aria-expanded="false">TCL</a>
-        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-          @for(item of dropdownTCL; track item){
-          <li><a class="dropdown-item" href="#">{{item}}</a></li>
-          }
-        </ul>
-      </li>
+      @for(option of options; track option){
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
+            aria-expanded="false">
+            {{option.name}}
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+            @for(item of option.items; track item){
+            <li><a class="dropdown-item" href="{{item.path}}">{{item.name}}</a></li>}
+          </ul>
+        </li>
+      }
     </ul>
     <div class="d-flex justify-content-end">
       <a href="" class="nav-link font-weight-bold"><span class="navbar-text">&plus; Nueva base de datos&nbsp;&nbsp;&nbsp;</span></a>
