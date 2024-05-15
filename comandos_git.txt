@@ -1,4 +1,5 @@
-git status
-git add [name_of_file.ext]
-git commit [name_of_file.ext] -m "Comentario breve"
-git push
+git status : Revisar el estatus de los items que están en git
+git add [name_of_file.ext] : Añadir un nuevo item a git para luego hacer commit
+git commit [name_of_file.ext] -m "Comentario breve" : Hacer commit a los items que han sido añadidos
+git push : "Empujar" los cambios a github
+git pull : Mandar a traer los cambios de github a nuestro local
