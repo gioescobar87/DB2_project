@@ -26,6 +26,4 @@ public class CreateDBController {
             return "Error creating database "+e.getMessage();
         }
     }
-    
-
 }
