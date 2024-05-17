@@ -1,0 +1,41 @@
+<div class="container mt-5">
+  <div class="row">
+    <div class="col">
+      <button id="newButton" class="btn btn-primary btn-block" (click)="display('new')" style="width: 200px;">Create new
+        database</button>
+      <span>&nbsp;</span>
+      <button id="delButton" class="btn btn-danger btn-block" (click)="display('delete')" style="width: 200px;">Delete
+        database</button>
+      <span>&nbsp;</span>
+      <button id="canButton" class="btn btn-outline-secondary btn-block" (click)="cancel()"
+        style="width: 200px;">Cancel</button>
+        <br><br>
+        <hr class="row">
+        <br><br>
+      <div class="row mt-3" id="inputSection">
+        @switch (disp) {
+        @case("new"){
+        <form for="">
+          <div class="col form-group mb-2">
+            <input [(ngModel)]="name" type="text" class="form-control" id="nameCreate" placeholder="Enter name" name="sentence">
+          </div>
+          <div class="col">
+            <button id="saveButton" class="btn btn-success" style="width: 125px;"
+              (click)="createDatabase(name)">Create</button>
+          </div>
+        </form>
+
+        }
+        @case("delete"){
+        <div class="col">
+          <input type="text" class="form-control" id="nameDelete" placeholder="Enter name" name="sentence">
+        </div>
+        <div class="col">
+          <button id="saveButton" class="btn btn-danger" style="width: 125px;"
+            (click)="display('delete')">Delete</button>
+        </div>
+        }
+        }
+      </div>
+    </div>
+  </div>
