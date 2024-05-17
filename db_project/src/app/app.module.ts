@@ -5,9 +5,12 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { CoreModule } from './core/core.module';
 import { SharedModule } from './shared/shared.module';
-import { CreateTableModule } from './create-table/create-table.module';
-import { AlterTableModule } from './alter-table/alter-table.module';
-import { DropTableModule } from './drop-table/drop-table.module';
+import { CreateTableModule } from './Components/create-table/create-table.module';
+import { AlterTableModule } from './Components/alter-table/alter-table.module';
+import { DropTableModule } from './Components/drop-table/drop-table.module';
+import { HttpClientModule } from '@angular/common/http';
+import { DatabaseModule } from './Components/database/database.module';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -16,11 +19,16 @@ import { DropTableModule } from './drop-table/drop-table.module';
   imports: [
     BrowserModule,
     AppRoutingModule,
+    FormsModule,
+    HttpClientModule,
+    BrowserModule,
+    AppRoutingModule,
     CoreModule,
     SharedModule,
     CreateTableModule,
     AlterTableModule,
-    DropTableModule
+    DropTableModule,
+    DatabaseModule
   ],
   providers: [
     provideClientHydration()
