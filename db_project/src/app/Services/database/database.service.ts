@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Database } from '../../Entities/Database';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -13,5 +14,14 @@ export class DatabaseService {
 
   createDatabase(sentence:String){
     return this.http.post<Database>(this.url+"/create-database",sentence);
+  }
+
+  deleteDatabase(sentence:String){
+    return this.http.post<Database>(this.url+"/delete-database",sentence);
+  }
+
+  createTable(sentence:String){
+    this.http.post<Database>(this.url+"/create-table","use prueba_3;");
+    return this.http.post<Database>(this.url+"/delete-database",sentence);
   }
 }
