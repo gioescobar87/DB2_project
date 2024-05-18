@@ -25,8 +25,10 @@ export class DatabaseComponent {
   ngOnInit():void{}
 
   createDatabase(sentence:String){
+    alert("Entré al método createDatabase"+sentence);
     if (typeof(sentence)!="undefined") {
-      this.servicio.createDatabase("create database "+this.name+";").subscribe(item=>{
+      alert("Entré al if"+sentence);
+      this.servicio.createDatabase("create database "+sentence+";").subscribe(item=>{
         alert("Base de datos");
         //this.router.navigate(["listar-alumno"]);
       })
