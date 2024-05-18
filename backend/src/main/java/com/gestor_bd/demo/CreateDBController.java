@@ -26,4 +26,32 @@ public class CreateDBController {
             return "Error creating database "+e.getMessage();
         }
     }
+
+    @PostMapping("/delete-database")
+    @Transactional
+    public String deleteDatabase(@RequestBody String sqlQuery) {
+        try{
+            entityManager.createNativeQuery(sqlQuery).executeUpdate();
+            return "Database deleted successfully";
+        } catch (Exception e){
+            return "Error deleting database "+e.getMessage();
+        }
+    }
+
+    @PostMapping("/create-table")
+    @Transactional
+    public String createTable(@RequestBody String sqlQuery) {
+        try{
+            entityManager.createNativeQuery(sqlQuery).executeUpdate();
+            return "Table "+sqlQuery+" created successfully";
+        } catch (Exception e){
+            return "Error creating the table "+e.getMessage();
+        }
+    }
+
+    /*
+     *   deleteDatabase(sentence:String){
+    return this.http.post<Database>(this.url+"/delete-database",sentence);
+  }
+     */
 }
