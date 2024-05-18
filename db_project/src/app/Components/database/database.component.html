@@ -9,15 +9,16 @@
       <span>&nbsp;</span>
       <button id="canButton" class="btn btn-outline-secondary btn-block" (click)="cancel()"
         style="width: 200px;">Cancel</button>
-        <br><br>
-        <hr class="row">
-        <br><br>
+      <br><br>
+      <hr class="row">
+      <br><br>
       <div class="row mt-3" id="inputSection">
         @switch (disp) {
         @case("new"){
         <form for="">
           <div class="col form-group mb-2">
-            <input [(ngModel)]="name" type="text" class="form-control" id="nameCreate" placeholder="Enter name" name="sentence">
+            <input [(ngModel)]="name" type="text" class="form-control" id="nameCreate" placeholder="Enter name"
+              name="sentence">
           </div>
           <div class="col">
             <button id="saveButton" class="btn btn-success" style="width: 125px;"
@@ -27,13 +28,16 @@
 
         }
         @case("delete"){
-        <div class="col">
-          <input type="text" class="form-control" id="nameDelete" placeholder="Enter name" name="sentence">
-        </div>
-        <div class="col">
-          <button id="saveButton" class="btn btn-danger" style="width: 125px;"
-            (click)="display('delete')">Delete</button>
-        </div>
+        <form for="">
+          <div class="col form-group mb-2">
+            <input [(ngModel)]="name" type="text" class="form-control" id="nameDelete" placeholder="Enter name"
+              name="sentence">
+          </div>
+          <div class="col">
+            <button id="saveButton" class="btn btn-danger" style="width: 125px;"
+              (click)="deleteDatabase(name)">Delete</button>
+          </div>
+        </form>
         }
         }
       </div>

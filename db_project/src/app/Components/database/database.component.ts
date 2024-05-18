@@ -25,11 +25,19 @@ export class DatabaseComponent {
   ngOnInit():void{}
 
   createDatabase(sentence:String){
-    alert("Entré al método createDatabase"+sentence);
     if (typeof(sentence)!="undefined") {
-      alert("Entré al if"+sentence);
       this.servicio.createDatabase("create database "+sentence+";").subscribe(item=>{
-        alert("Base de datos");
+        alert("Base de datos creada");
+      })
+    } else {
+      alert("Por favor verifique los datos ingresados");
+    }
+  }
+
+  deleteDatabase(sentence:String){
+    if (typeof(sentence)!="undefined") {
+      this.servicio.deleteDatabase("drop database "+sentence+";").subscribe(item=>{
+        alert("Base de datos eliminada");
         //this.router.navigate(["listar-alumno"]);
       })
     } else {
