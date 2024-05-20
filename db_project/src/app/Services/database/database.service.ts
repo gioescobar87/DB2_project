@@ -28,4 +28,13 @@ export class DatabaseService {
   getDatabases(): Observable<string[]> {
     return this.http.get<string[]>(this.url+"/list-database");
   }
+
+  getTables(databaseName:String): Observable<string[]> {
+    return this.http.get<string[]>(this.url+"/list-tables/"+databaseName);
+  }
+
+  dropTable(sentence:String){
+    this.http.post<Database>(this.url+"/drop-table",sentence);
+    return this.http.post<Database>(this.url+"/drop-table",sentence);
+  }
 }

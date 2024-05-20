@@ -27,8 +27,8 @@ import { FormsModule } from '@angular/forms';
     SharedModule,
     CreateTableModule,
     AlterTableModule,
-    DropTableModule,
-    DatabaseModule
+    DatabaseModule,
+    DropTableModule
   ],
   providers: [
     provideClientHydration()
