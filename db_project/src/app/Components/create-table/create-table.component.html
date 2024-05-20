@@ -1,8 +1,65 @@
 <div class="container mt-5">
-  <h2>Add and Remove Text Fields</h2>
-  <div id="textFieldsContainer">
-    <!-- Text fields will be added dynamically here -->
+  <div class="row">
+    <div class="col-md-6 offset-md-3">
+      <div class="form-group">
+        <label for="exampleSelect">Select the database you want to work on: *</label>
+        <br>
+        <select [(ngModel)]="databaseName" class="form-control" id="exampleSelect">
+          @for (database of databaseList; track database) {
+          <option>{{database}}</option>
+          }
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="input3">Indicate the number of attributes: *</label>
+        <div>
+          <input [(ngModel)]="fieldsNumber" type="text" class="form-control" id="input3"
+            placeholder="Enter value for input 3"><br>
+          <button class="btn btn-primary" type="button"
+            (click)="enableFields(fieldsNumber)">&nbsp;Confirm&nbsp;</button>
+        </div>
+      </div>
+    </div>
   </div>
-  <button id="addTextFieldBtn" class="btn btn-primary mt-3">Add Text Field</button>
-  <button id="removeTextFieldBtn" class="btn btn-danger mt-3">Remove Text Field</button>
 </div>
+
+<hr>
+
+<div class="container mt-3">
+  <div class="row">
+    <div class="col-md-6 offset-md-3">
+      <form action="">
+        <div class="form-group">
+          <label for="input1">Table name: *</label>
+          <input [(ngModel)]="tableName" name="tableName" type="text" class="form-control" id="input1"
+            placeholder="Enter table name" required>
+        </div>
+        <div class="form-group">
+          <label for="input2">Primary key: *</label>
+          <input [(ngModel)]="primaryKey" name="primaryKey" type="text" class="form-control" id="input2"
+            value="id_{{tableName}}" required disabled>
+        </div>
+        @for (attribute of attributeList; track attribute) {
+        <hr>
+        <div class="form-group">
+          <label for="input2" style="font-weight: bold;">{{attribute.attribute}}: *</label>
+          <input [(ngModel)]="attribute.name" name="attribute.name" type="text" class="form-control" id="input2"
+            placeholder="Enter attribute name" required>
+          <label for="input2">Attribute type: *</label>
+          <select [(ngModel)]="attribute.type" name="attribute.type" class="form-control" id="dataType">
+            @for (item of dataType; track item) {
+            <option>{{item}}</option>
+            }
+          </select>
+          <label for="input2">Attribute size: *</label>
+          <input [(ngModel)]="attribute.size" name="attribute.size" type="number" class="form-control" id="input2"
+            placeholder="Enter max. size of values" required>
+        </div>
+        }
+        <br>
+        <button class="btn btn-primary" type="button" (click)="captureData()">&nbsp;Crear tabla&nbsp;</button>
+      </form>
+    </div>
+  </div>
+</div>
+<br><br><br>

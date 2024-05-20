@@ -1,84 +1,85 @@
 import { Component, OnInit } from '@angular/core';
+import { DatabaseService } from '../../Services/database/database.service';
+import { Router } from '@angular/router';
+
+interface attribute {
+  attribute: String;
+  name: String | null;
+  type: String | null;
+  size: number | null;
+}
 
 @Component({
   selector: 'app-create-table',
   templateUrl: './create-table.component.html',
   styleUrl: './create-table.component.scss',
 })
-export class CreateTableComponent implements OnInit{
+export class CreateTableComponent implements OnInit {
+  databaseList: String[] = [];
+  databaseName: String = '';
+  fieldsNumber: number = 0;
+  dataType: String[] = ['number', 'varchar'];
 
-  textFieldCounter: number = 0;
-  addTextFieldBtn: HTMLElement | null = document.getElementById('addTextFieldBtn');
+  primaryKey: String = '';
+  tableName: String = '';
 
-  constructor(){}
+  attributeList: attribute[] = [];
+  sentence: String = '';
+
+  constructor(private servicio: DatabaseService, private router: Router) {}
+
   ngOnInit(): void {
-    if(this.addTextFieldBtn) {
-      this.addTextFieldBtn.addEventListener('click', this.addTextField);
-    }
-  }
-
-
-  addTextField(): void {
-    const textFieldsContainer: HTMLDivElement | null = document.getElementById(
-      'textFieldsContainer'
-    ) as HTMLDivElement;
-
-    // Create a new text field
-    const textField: HTMLInputElement = document.createElement('input');
-    textField.type = 'text';
-    textField.className = 'form-control mt-2';
-    textField.placeholder = `Text Field ${++this.textFieldCounter}`;
-
-    // Append the new text field to the container
-    if (textFieldsContainer) {
-      textFieldsContainer.appendChild(textField);
-    }
-  }
-
-  removeTextField(): void {
-    const textFieldsContainer: HTMLDivElement | null = document.getElementById(
-      'textFieldsContainer'
-    ) as HTMLDivElement;
-
-    // Get the last text field and remove it
-    const lastTextField: Node | null = textFieldsContainer?.lastChild;
-    if (lastTextField) {
-      textFieldsContainer?.removeChild(lastTextField);
-      this.textFieldCounter--;
-    }
-  }
-
-  //Unexpected keyword or identifier Member 'document' implicitly has an 'any' type
-  //document.getElementById('addTextFieldBtn')?.addEventListener('click', addTextField());
-  //document.getElementById('removeTextFieldBtn')?.addEventListener('click', removeTextField);
-
-  // Define a counter to keep track of the number of text fields
-
-
-
-/*
-
-  // Function to add a new text field
-  addTextField(): void {
-    // Increment the counter
-    this.textFieldCounter++;
-
-    // Create a new text field element
-    const textField: HTMLInputElement = document.createElement('input');
-    textField.type = 'text';
-    textField.className = 'form-control mt-2';
-    textField.placeholder = `Text Field ${this.textFieldCounter}`;
-
-    // Append the new text field to the textFieldsContainer
-    const textFieldsContainer: HTMLElement | null = document.getElementById(
-      'textFieldsContainer'
+    this.servicio.getDatabases().subscribe(
+      (data: string[]) => {
+        this.databaseList = data;
+      },
+      (error) => {
+        alert('No se pudo obtener la lista de bases de datos');
+      }
     );
-    if (textFieldsContainer) {
-      textFieldsContainer.appendChild(textField);
+  }
+
+  enableFields(quantity: number) {
+    this.attributeList = [];
+    for (let index = 0; index < quantity; index++) {
+      this.attributeList.push({
+        attribute: 'Attribute ' + (index + 1),
+        name: null,
+        type: null,
+        size: null,
+      });
     }
   }
 
-  // Add event listener to the "Add Text Field" button
-*/
+  captureData() {
+    this.generateSentence();
+    this.servicio
+      .createTable('use ' + this.databaseName + ';')
+      .subscribe((item) => {});
+    this.servicio
+      .createTable(this.sentence)
+      .subscribe((item) => {});
+  }
 
+  generateSentence() {
+    this.primaryKey = 'id_' + this.tableName;
+    this.sentence = '';
+    this.sentence +=
+      'create table ' + this.tableName + '(' + this.primaryKey + ' int,';
+    for (let i = 0; i < this.attributeList.length; i++) {
+      this.sentence +=
+        this.attributeList[i].name +
+        ' ' +
+        this.attributeList[i].type +
+        '(' +
+        this.attributeList[i].size;
+      this.sentence += this.attributeList.length - i > 1 ? '),' : ')';
+    }
+    this.sentence += ');';
+  }
+
+  captureGeneralInfo() {
+    this.primaryKey = 'id_' + this.tableName;
+    alert(this.tableName + ' || ' + this.primaryKey);
+  }
 }

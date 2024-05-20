@@ -21,7 +21,11 @@ export class DatabaseService {
   }
 
   createTable(sentence:String){
-    this.http.post<Database>(this.url+"/create-table","use prueba_3;");
-    return this.http.post<Database>(this.url+"/delete-database",sentence);
+    this.http.post<Database>(this.url+"/create-table",sentence);
+    return this.http.post<Database>(this.url+"/create-table",sentence);
+  }
+
+  getDatabases(): Observable<string[]> {
+    return this.http.get<string[]>(this.url+"/list-database");
   }
 }
