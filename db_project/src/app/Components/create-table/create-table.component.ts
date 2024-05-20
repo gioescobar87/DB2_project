@@ -77,9 +77,4 @@ export class CreateTableComponent implements OnInit {
     }
     this.sentence += ');';
   }
-
-  captureGeneralInfo() {
-    this.primaryKey = 'id_' + this.tableName;
-    alert(this.tableName + ' || ' + this.primaryKey);
-  }
 }
