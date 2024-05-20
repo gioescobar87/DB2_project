@@ -4,7 +4,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
@@ -13,10 +16,11 @@ import jakarta.transaction.Transactional;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
-
+@CrossOrigin
 @RestController
 public class CreateDBController {
 
+    @Autowired
     @PersistenceContext
     private EntityManager entityManager;
 
@@ -52,6 +56,24 @@ public class CreateDBController {
             return "Error creating the table "+e.getMessage();
         }
     }
+    
+    @PostMapping("/drop-table")
+    @Transactional
+    public String dropTable(@RequestBody String sqlQuery) {
+        try{
+            entityManager.createNativeQuery(sqlQuery).executeUpdate();
+            return "Table "+sqlQuery+" was dropped successfully";
+        } catch (Exception e){
+            return "Error dropping the table "+e.getMessage();
+        }
+    }
+
+    @GetMapping("/list-tables/{databaseName}")
+    public List<String> getTables(@PathVariable String databaseName) {
+        String sqlQuery = "SHOW TABLES FROM " + databaseName;
+        List<String> tables = entityManager.createNativeQuery(sqlQuery).getResultList();
+        return tables;
+    }
 
     @GetMapping("/list-database")
     public List<String> getDatabases(){
@@ -59,5 +81,5 @@ public class CreateDBController {
         List<String> databases = entityManager.createNativeQuery(sqlQuery).getResultList();
         return databases;
     }
-    
+
 }
