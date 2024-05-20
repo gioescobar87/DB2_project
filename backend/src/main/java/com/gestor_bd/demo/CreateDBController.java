@@ -2,6 +2,10 @@ package com.gestor_bd.demo;
 
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
+import org.springframework.web.bind.annotation.GetMapping;
+
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.transaction.Transactional;
@@ -49,9 +53,11 @@ public class CreateDBController {
         }
     }
 
-    /*
-     *   deleteDatabase(sentence:String){
-    return this.http.post<Database>(this.url+"/delete-database",sentence);
-  }
-     */
+    @GetMapping("/list-database")
+    public List<String> getDatabases(){
+        String sqlQuery = "show databases";
+        List<String> databases = entityManager.createNativeQuery(sqlQuery).getResultList();
+        return databases;
+    }
+    
 }
