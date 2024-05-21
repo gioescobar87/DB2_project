@@ -11,6 +11,7 @@ import { DropTableModule } from './Components/drop-table/drop-table.module';
 import { HttpClientModule } from '@angular/common/http';
 import { DatabaseModule } from './Components/database/database.module';
 import { FormsModule } from '@angular/forms';
+import { InsertModule } from './Components/insert/insert.module';
 
 @NgModule({
   declarations: [
@@ -28,11 +29,13 @@ import { FormsModule } from '@angular/forms';
     CreateTableModule,
     AlterTableModule,
     DatabaseModule,
-    DropTableModule
+    DropTableModule,
+    InsertModule
   ],
   providers: [
     provideClientHydration()
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  exports: []
 })
 export class AppModule { }

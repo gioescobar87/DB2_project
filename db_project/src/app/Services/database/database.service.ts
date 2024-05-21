@@ -25,12 +25,22 @@ export class DatabaseService {
     return this.http.post<Database>(this.url+"/create-table",sentence);
   }
 
+  insert(sentence:String){
+    this.http.post<Database>(this.url+"/insert",sentence);
+    return this.http.post<Database>(this.url+"/insert",sentence);
+  }
+
   getDatabases(): Observable<string[]> {
     return this.http.get<string[]>(this.url+"/list-database");
   }
 
   getTables(databaseName:String): Observable<string[]> {
     return this.http.get<string[]>(this.url+"/list-tables/"+databaseName);
+  }
+
+  getAttributes(databaseName:String, tableName:String): Observable<string[]> {
+    //alert("Servicio: "+databaseName+" | "+tableName);
+    return this.http.get<string[]>(this.url+"/list-attributes/"+databaseName+"/"+tableName);
   }
 
   dropTable(sentence:String){
