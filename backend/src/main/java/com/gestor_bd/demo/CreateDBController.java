@@ -3,6 +3,7 @@ package com.gestor_bd.demo;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -56,6 +57,17 @@ public class CreateDBController {
             return "Error creating the table "+e.getMessage();
         }
     }
+
+    @PostMapping("/insert")
+    @Transactional
+    public String insert(@RequestBody String sqlQuery) {
+        try{
+            entityManager.createNativeQuery(sqlQuery).executeUpdate();
+            return "Sentence "+sqlQuery+" executed successfully";
+        } catch (Exception e){
+            return "Error executing script "+e.getMessage();
+        }
+    }
     
     @PostMapping("/drop-table")
     @Transactional
@@ -80,6 +92,16 @@ public class CreateDBController {
         String sqlQuery = "show databases";
         List<String> databases = entityManager.createNativeQuery(sqlQuery).getResultList();
         return databases;
+    }
+
+    @GetMapping("/list-attributes/{databaseName}/{tableName}")
+    public List<String> getAttributes(@PathVariable String databaseName, @PathVariable String tableName) {
+        System.out.println(databaseName+" | "+tableName);
+        String sqlQuery = "SHOW COLUMNS FROM " + databaseName + "." + tableName;
+        System.out.println("sqlQuery: "+sqlQuery);
+        List<Object[]> columns = entityManager.createNativeQuery(sqlQuery).getResultList();
+        System.out.println(columns.stream().map(column -> (String) column[0]).collect(Collectors.toList()));
+        return columns.stream().map(column -> (String) column[0]).collect(Collectors.toList());
     }
 
 }
