@@ -65,7 +65,7 @@ export class CreateTableComponent implements OnInit {
     this.primaryKey = 'id_' + this.tableName;
     this.sentence = '';
     this.sentence +=
-      'create table ' + this.tableName + '(' + this.primaryKey + ' int,';
+      'create table ' + this.tableName + '(' + this.primaryKey + ' int auto_increment primary key,';
     for (let i = 0; i < this.attributeList.length; i++) {
       this.sentence +=
         this.attributeList[i].name +
