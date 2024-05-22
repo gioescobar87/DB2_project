@@ -65,16 +65,20 @@ export class InsertComponent implements OnInit {
   updateInputs() {
     this.attributeList = [];
     for (let i = 0; i < this.attributesList.length; i++) {
-      this.attributeList.push({
-        attribute: this.attributesList[i],
-        value: null,
-      });
+      if (i != 0) {
+        this.attributeList.push({
+          attribute: this.attributesList[i],
+          value: null,
+        });
+      }
     }
   }
 
   captureData() {
     this.generateSentence();
-    this.servicio.insert('use ' + this.databaseName + ';').subscribe((item) => {});
+    this.servicio
+      .insert('use ' + this.databaseName + ';')
+      .subscribe((item) => {});
     this.servicio.insert(this.sentence).subscribe((item) => {});
   }
 
@@ -82,7 +86,7 @@ export class InsertComponent implements OnInit {
     this.sentence = '';
     this.sentence += 'insert into ' + this.tableName + ' (';
     for (let i = 0; i < this.attributeList.length; i++) {
-      this.sentence += " " + this.attributeList[i].attribute;
+      this.sentence += ' ' + this.attributeList[i].attribute;
       this.sentence += this.attributeList.length - i > 1 ? ',' : ') values (';
     }
     for (let i = 0; i < this.attributeList.length; i++) {

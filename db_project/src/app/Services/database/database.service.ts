@@ -2,6 +2,8 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Database } from '../../Entities/Database';
 import { Observable } from 'rxjs';
+import * as CryptoJS from 'crypto-js';
+import * as crypto from 'crypto';
 
 @Injectable({
   providedIn: 'root'
@@ -39,12 +41,25 @@ export class DatabaseService {
   }
 
   getAttributes(databaseName:String, tableName:String): Observable<string[]> {
-    //alert("Servicio: "+databaseName+" | "+tableName);
     return this.http.get<string[]>(this.url+"/list-attributes/"+databaseName+"/"+tableName);
   }
 
   dropTable(sentence:String){
     this.http.post<Database>(this.url+"/drop-table",sentence);
     return this.http.post<Database>(this.url+"/drop-table",sentence);
+  }
+
+  getUsers(): Observable<any> {
+    return this.http.get<any>(this.url+"/list-users");
+  }
+
+  hashPassword(password:string,salt:string){
+
+    let combinedString = password + salt;
+
+    //return CryptoJS.AES.encrypt(password, password).toString();
+    //return CryptoJS.SHA256(password).toString(CryptoJS.enc.Hex);
+    return CryptoJS.MD5(combinedString).toString();
+    //return CryptoJS.SHA1(password).toString(CryptoJS.enc.Hex);
   }
 }
