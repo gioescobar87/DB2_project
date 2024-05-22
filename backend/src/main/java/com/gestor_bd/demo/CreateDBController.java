@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -96,12 +97,35 @@ public class CreateDBController {
 
     @GetMapping("/list-attributes/{databaseName}/{tableName}")
     public List<String> getAttributes(@PathVariable String databaseName, @PathVariable String tableName) {
-        System.out.println(databaseName+" | "+tableName);
+        //System.out.println(databaseName+" | "+tableName);
         String sqlQuery = "SHOW COLUMNS FROM " + databaseName + "." + tableName;
-        System.out.println("sqlQuery: "+sqlQuery);
+        //System.out.println("sqlQuery: "+sqlQuery);
         List<Object[]> columns = entityManager.createNativeQuery(sqlQuery).getResultList();
-        System.out.println(columns.stream().map(column -> (String) column[0]).collect(Collectors.toList()));
+        //System.out.println(columns.stream().map(column -> (String) column[0]).collect(Collectors.toList()));
         return columns.stream().map(column -> (String) column[0]).collect(Collectors.toList());
     }
 
+    @GetMapping("/list-users")
+    public List<String> getUsers() {
+        String sqlQuery = "SELECT user, authentication_string FROM mysql.user";
+        List<Object[]> users = entityManager.createNativeQuery(sqlQuery).getResultList();
+        return users.stream()
+                     .map(user -> "User: " + user[0] + ", Password: " + user[1])
+                     .collect(Collectors.toList());
+    }
+
+    @GetMapping("/get-user/{username}")
+    public List<String> getUserByUsername(@PathVariable String username) {
+        String sqlQuery = "SELECT user, authentication_string FROM mysql.user WHERE user = :username";
+        List<Object[]> users = entityManager.createNativeQuery(sqlQuery)
+                                             .setParameter("username", username)
+                                             .getResultList();
+        return users.stream()
+                     .map(user -> "User: " + user[0] + ", Password: " + user[1])
+                     .collect(Collectors.toList());
+    }
+
+    private String hashPassword(String password) {
+        return DigestUtils.sha1Hex(password);
+    }
 }
