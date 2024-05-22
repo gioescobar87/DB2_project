@@ -5,7 +5,6 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -123,9 +122,5 @@ public class CreateDBController {
         return users.stream()
                      .map(user -> "User: " + user[0] + ", Password: " + user[1])
                      .collect(Collectors.toList());
-    }
-
-    private String hashPassword(String password) {
-        return DigestUtils.sha1Hex(password);
     }
 }
