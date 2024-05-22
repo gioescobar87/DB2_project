@@ -53,13 +53,4 @@ export class DatabaseService {
     return this.http.get<any>(this.url+"/list-users");
   }
 
-  hashPassword(password:string,salt:string){
-
-    let combinedString = password + salt;
-
-    //return CryptoJS.AES.encrypt(password, password).toString();
-    //return CryptoJS.SHA256(password).toString(CryptoJS.enc.Hex);
-    return CryptoJS.MD5(combinedString).toString();
-    //return CryptoJS.SHA1(password).toString(CryptoJS.enc.Hex);
-  }
 }

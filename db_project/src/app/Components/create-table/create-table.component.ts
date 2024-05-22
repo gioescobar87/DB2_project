@@ -54,19 +54,20 @@ export class CreateTableComponent implements OnInit {
   captureData() {
     this.generateSentence();
     alert(this.sentence);
-    this.servicio
-      .createTable('use ' + this.databaseName + ';')
+    this.servicio.createTable('use ' + this.databaseName + ';')
       .subscribe((item) => {});
-    this.servicio
-      .createTable(this.sentence)
-      .subscribe((item) => {});
+    this.servicio.createDatabase(this.sentence).subscribe((item) => {});
   }
 
   generateSentence() {
     this.primaryKey = 'id_' + this.tableName;
     this.sentence = '';
     this.sentence +=
-      'create table ' + this.tableName + '(' + this.primaryKey + ' int AUTO_INCREMENT PRIMARY KEY,';
+      'create table ' +
+      this.tableName +
+      '(' +
+      this.primaryKey +
+      ' INT AUTO_INCREMENT PRIMARY KEY,';
     for (let i = 0; i < this.attributeList.length; i++) {
       this.sentence +=
         this.attributeList[i].name +

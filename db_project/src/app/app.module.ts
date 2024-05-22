@@ -12,7 +12,6 @@ import { HttpClientModule } from '@angular/common/http';
 import { DatabaseModule } from './Components/database/database.module';
 import { FormsModule } from '@angular/forms';
 import { InsertModule } from './Components/insert/insert.module';
-import { LoginModule } from './login/login.module';
 
 @NgModule({
   declarations: [
@@ -32,7 +31,6 @@ import { LoginModule } from './login/login.module';
     DatabaseModule,
     DropTableModule,
     InsertModule,
-    LoginModule
   ],
   providers: [
     provideClientHydration()
