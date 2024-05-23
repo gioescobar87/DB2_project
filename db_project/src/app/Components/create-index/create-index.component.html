@@ -1,0 +1,43 @@
+<div class="container mt-5">
+  <div class="row">
+    <div class="col-md-6 offset-md-3">
+      <div class="form-grup">
+        <label for="">Select the database you want to work on: *</label>
+        <br>
+        <select [(ngModel)]="databaseName" class="form-control" name="databaseName" id="databaseName">
+          @for (database of databaseList; track database) {
+            <option>{{database}}</option>
+          }
+        </select>
+        <br>
+        <button class="btn-primary btn" type="button" (click)="getTables()" style="width: 150px;">Get tables</button>
+        <br><br>
+      </div>
+      <div class="form-group">
+        <label for="">Select the table you want to work with: *</label>
+        <br>
+        <select [(ngModel)]="tableName" name="tableName" id="tableName" class="form-control">
+          <option>&nbsp;---</option>
+          @for (table of tableList; track table) {
+            <option>{{table}}</option>
+          }
+        </select>
+        <br>
+        <button class="btn-primary btn" type="button" (click)="getAttributes()" style="width: 150px">Get attributes</button>
+        <br><br>
+      </div>
+      <div class="form-group">
+        <label for="">Select the attribute that will be used as an indez: *</label>
+        <br>
+        <select [(ngModel)]="attributeName" name="attributeName" id="attributeName" class="form-control">
+          <option>&nbsp;---</option>
+          @for (attribute of attributeList; track attribute) {
+            <option>{{attribute}}</option>
+          }
+        </select>
+        <br>
+        <button class="btn-outline-success btn" type="button" (click)="createIndex()" style="width: 150px">Create index</button>
+      </div>
+    </div>
+  </div>
+</div>
