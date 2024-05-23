@@ -80,6 +80,17 @@ public class CreateDBController {
         }
     }
 
+    @PostMapping("/truncate-table")
+    @Transactional
+    public String truncateTable(@RequestBody String sqlQuery) {
+        try{
+            entityManager.createNativeQuery(sqlQuery).executeUpdate();
+            return "Truncate successful";
+        } catch (Exception e){
+            return "Error during truncate: "+e.getMessage();
+        }
+    }
+
     @GetMapping("/list-tables/{databaseName}")
     public List<String> getTables(@PathVariable String databaseName) {
         String sqlQuery = "SHOW TABLES FROM " + databaseName;
