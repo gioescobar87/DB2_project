@@ -74,7 +74,7 @@ public class CreateDBController {
     public String dropTable(@RequestBody String sqlQuery) {
         try{
             entityManager.createNativeQuery(sqlQuery).executeUpdate();
-            return "Table "+sqlQuery+" was dropped successfully";
+            return "Table dropped successfully";
         } catch (Exception e){
             return "Error dropping the table "+e.getMessage();
         }
@@ -88,6 +88,17 @@ public class CreateDBController {
             return "Truncate successful";
         } catch (Exception e){
             return "Error during truncate: "+e.getMessage();
+        }
+    }
+
+    @PostMapping("/create-index")
+    @Transactional
+    public String createIndex(@RequestBody String sqlQuery) {
+        try{
+            entityManager.createNativeQuery(sqlQuery).executeUpdate();
+            return "Index created successfully";
+        } catch (Exception e){
+            return "Error creating index "+e.getMessage();
         }
     }
 
