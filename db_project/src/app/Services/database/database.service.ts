@@ -57,6 +57,10 @@ export class DatabaseService {
     return this.http.post<Database>(this.url+"/create-index",sentence);
   }
 
+  createView(sentence:String){
+    return this.http.post<Database>(this.url+"/create-view",sentence);
+  }
+
   getUsers(): Observable<any> {
     return this.http.get<any>(this.url+"/list-users");
   }
