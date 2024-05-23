@@ -1,1 +1,52 @@
-<p>create-view works!</p>
+<div class="container mt-5">
+  <div class="row">
+    <div class="offset-md-3 col-md-6">
+      <div class="fom-group">
+        <label for="">Select the database you want to work on: *</label>
+        <select [(ngModel)]="databaseName" class="form-control" name="databaseName" id="databaseNase">
+          @for (database of databaseList; track database) {
+            <option>{{database}}</option>
+          }
+        </select>
+        <br>
+        <button class="btn-primary btn" type="button" (click)="getTables()" style="width: 150px">Get tables</button>
+      </div>
+      <br><hr><br>
+      <div class="fom-group">
+        <label for="">Select the table you want to work with: *</label>
+        <br>
+        <select [(ngModel)]="tableName" class="form-control" name="tableName" id="tableName">
+          <option>&nbsp;---</option>
+          @for (table of tableList; track table) {
+            <option>{{table}}</option>
+          }
+        </select>
+        <br>
+        <label for="">Please confirm the number of attributes your view will contain: *</label>
+        <input [(ngModel)]="number" type="number" class="form-control">
+        <br>
+        <label for="">Please enter the name or your view: *</label>
+        <input [(ngModel)]="viewName" type="text" class="form-control" placeholder="Enter the name of view">
+        <br>
+        <button class="btn-primary btn" type="button" (click)="getAttributes()" style="width: 150px">Get attributes</button>
+      </div>
+      <br><hr><br>
+      <div class="fom-group">
+        @for (element of attributes; track element) {
+          <label for="">{{element.position}}</label>
+          <select [(ngModel)]="element.attribute" name="element.attribute" id="element.attribute" class="form-control">
+            <option>&nbsp;---</option>
+            @for (attribute of attributeList; track attribute) {
+              <option>{{attribute}}</option>
+            }
+          </select>
+          <br>
+        }
+        <br>
+        <button class="btn-outline-success btn" type="button" (click)="createView()" style="width: 150px">Create view</button>
+      </div>
+      <br><br>
+    </div>
+  </div>
+</div>
+<br><br>
