@@ -102,6 +102,17 @@ public class CreateDBController {
         }
     }
 
+    @PostMapping("/create-view")
+    @Transactional
+    public String createView(@RequestBody String sqlQuery) {
+        try{
+            entityManager.createNativeQuery(sqlQuery).executeUpdate();
+            return "View created successfully";
+        } catch (Exception e){
+            return "Error creating view "+e.getMessage();
+        }
+    }
+
     @GetMapping("/list-tables/{databaseName}")
     public List<String> getTables(@PathVariable String databaseName) {
         String sqlQuery = "SHOW TABLES FROM " + databaseName;
