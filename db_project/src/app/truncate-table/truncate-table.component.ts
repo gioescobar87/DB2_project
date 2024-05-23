@@ -40,9 +40,9 @@ export class TruncateTableComponent implements OnInit {
       .truncateTable('use ' + this.databaseName + ';')
       .subscribe((item) => {});
     this.servicio
-      .truncateTable('truncate ' + this.tableName)
+      .truncateTable('truncate ' + this.tableName + '; ')
       .subscribe((item) => {});
-    alert('Success');
-    window.location.reload();
+    alert('truncate ' + this.tableName + ';');
+    //window.location.reload();
   }
 }

@@ -1,3 +1,4 @@
+import { TruncateTableModule } from './truncate-table/truncate-table.module';
 import { NgModule } from '@angular/core';
 import { BrowserModule, provideClientHydration } from '@angular/platform-browser';
 
@@ -12,6 +13,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { DatabaseModule } from './Components/database/database.module';
 import { FormsModule } from '@angular/forms';
 import { InsertModule } from './Components/insert/insert.module';
+import { CreateViewModule } from './Components/create-view/create-view.module';
+import { CreateIndexModule } from './Components/create-index/create-index.module';
 
 @NgModule({
   declarations: [
@@ -31,6 +34,9 @@ import { InsertModule } from './Components/insert/insert.module';
     DatabaseModule,
     DropTableModule,
     InsertModule,
+    TruncateTableModule,
+    CreateViewModule,
+    CreateIndexModule
   ],
   providers: [
     provideClientHydration()

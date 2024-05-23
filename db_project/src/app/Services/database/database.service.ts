@@ -49,6 +49,14 @@ export class DatabaseService {
     return this.http.post<Database>(this.url+"/drop-table",sentence);
   }
 
+  truncateTable(sentence:String){
+    return this.http.post<Database>(this.url+"/truncate-table",sentence);
+  }
+
+  createIndex(sentence:String){
+    return this.http.post<Database>(this.url+"/create-index",sentence);
+  }
+
   getUsers(): Observable<any> {
     return this.http.get<any>(this.url+"/list-users");
   }
