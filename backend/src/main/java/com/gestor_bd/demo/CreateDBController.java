@@ -100,6 +100,17 @@ public class CreateDBController {
     }
   }
 
+  @PostMapping("/drop-index")
+  @Transactional
+  public String dropIndex(@RequestBody String sqlQuery) {
+    try {
+      entityManager.createNativeQuery(sqlQuery).executeUpdate();
+      return "Index dropped successfully";
+    } catch (Exception e) {
+      return "Error dropping index " + e.getMessage();
+    }
+  }
+
   @PostMapping("/truncate-table")
   @Transactional
   public String truncateTable(@RequestBody String sqlQuery) {
@@ -236,7 +247,18 @@ public class CreateDBController {
     for (Object[] row : resultList) {
       views.add((String) row[0]);
     }
-
     return views;
+  }
+
+  @GetMapping("/list-indexes/{databaseName}/{tableName}")
+  public List<String> getIndexes(@PathVariable String databaseName, @PathVariable String tableName) {
+    String sqlQuery = "SHOW INDEX FROM " + databaseName + "." + tableName;
+    List<Object[]> resultList = entityManager.createNativeQuery(sqlQuery).getResultList();
+    List<String> indexes = new ArrayList<>();
+
+    for (Object[] row : resultList) {
+      indexes.add((String) row[2]); // The index name is in the 3rd column (index 2) of the result set
+    }
+    return indexes;
   }
 }
