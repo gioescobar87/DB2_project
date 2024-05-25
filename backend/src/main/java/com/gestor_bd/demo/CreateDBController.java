@@ -1,21 +1,30 @@
 package com.gestor_bd.demo;
 
+import org.hibernate.Session;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
+
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.Query;
+
+import java.sql.Statement;
+import java.util.*;
+
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
+import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.util.stream.Collectors;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
-import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
-import jakarta.transaction.Transactional;
 
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @CrossOrigin
 @RestController
@@ -155,5 +164,54 @@ public class CreateDBController {
         return users.stream()
                      .map(user -> "User: " + user[0] + ", Password: " + user[1])
                      .collect(Collectors.toList());
+    }
+
+    @GetMapping("/select")
+    @Transactional
+    public List<Map<String, Object>> executeQuery(@RequestParam String databaseName, @RequestParam String sqlQuery) {
+        // Switch to the specified database within a transactional context
+        entityManager.createNativeQuery("USE " + databaseName).executeUpdate();
+
+        Query query = entityManager.createNativeQuery(sqlQuery);
+        List<Object[]> resultList = query.getResultList();
+
+        if (resultList.isEmpty()) {
+            // Return an empty list if no results are found
+            return Collections.emptyList();
+        }
+
+        List<String> columnNames = getColumnNames(sqlQuery);
+
+        return resultList.stream()
+            .map(result -> {
+                Map<String, Object> resultMap = new HashMap<>();
+                for (int i = 0; i < result.length; i++) {
+                    resultMap.put(columnNames.get(i), result[i]);
+                }
+                return resultMap;
+            })
+            .collect(Collectors.toList());
+    }
+
+    private List<String> getColumnNames(String sqlQuery) {
+        List<String> columnNames = new ArrayList<>();
+        try {
+            // Unwrap the JDBC Connection from the EntityManager
+            Session session = entityManager.unwrap(Session.class);
+            session.doWork(connection -> {
+                Statement statement = connection.createStatement();
+                ResultSet resultSet = statement.executeQuery(sqlQuery);
+                ResultSetMetaData metaData = resultSet.getMetaData();
+                int columnCount = metaData.getColumnCount();
+                for (int i = 1; i <= columnCount; i++) {
+                    columnNames.add(metaData.getColumnName(i));
+                }
+                resultSet.close();
+                statement.close();
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return columnNames;
     }
 }
