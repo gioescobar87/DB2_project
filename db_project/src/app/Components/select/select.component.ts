@@ -17,10 +17,12 @@ export class SelectComponent implements OnInit {
   databaseList: String[] = []
   tableList: String[] = []
   attributeList: String[] = []
+  viewList: String[] = []
   data: any[] = []
   option: String = ""
   databaseName: string = " ---"
   tableName: String = ""
+  viewName: String = ""
   numberElements: number = 0
   attributesSelected: attribute[] = []
   columns: string[] = []
@@ -43,6 +45,14 @@ export class SelectComponent implements OnInit {
     this.servicio.getTables(this.databaseName).subscribe(
       (data: string[]) => {
         this.tableList = data;
+      }
+    );
+  }
+
+  getViews(event:Event){
+    this.servicio.getViews(this.databaseName).subscribe(
+      (data: string[]) => {
+        this.viewList = data;
       }
     );
   }
@@ -81,6 +91,23 @@ export class SelectComponent implements OnInit {
   }
 
   processComplex(){
+    if(this.sentence.slice(0,6).toLowerCase()=="select"){
+      this.servicio.select(this.databaseName,this.sentence).subscribe(
+        response => {
+          this.data = response;
+          if (this.data.length > 0) {
+            this.columns = Object.keys(this.data[0]);
+          }
+        }
+      )
+    } else {
+      alert("Only SELECT statements are allowed!")
+    }
+  }
+
+  processView(){
+    this.sentence = "select * from "+this.viewName+";";
+    alert(this.sentence);
     this.servicio.select(this.databaseName,this.sentence).subscribe(
       response => {
         this.data = response;

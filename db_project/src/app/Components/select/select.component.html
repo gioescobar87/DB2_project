@@ -5,7 +5,7 @@
     &nbsp;
     <button class="btn-outline-primary btn btn-block" (click)="display('complex')" style="width: 150px;">Complex</button>
     &nbsp;
-    <button class="btn-outline-primary btn btn-block" (click)="display('complex')" style="width: 150px;">View</button>
+    <button class="btn-outline-primary btn btn-block" (click)="display('view')" style="width: 150px;">View</button>
   </div>
   <hr><br>
   @switch (option) {
@@ -70,6 +70,31 @@
           <input [(ngModel)]="sentence" type="text" class="form-control">
           <br>
           <button class="btn-outline-success btn" (click)="processComplex()" style="width: 125px;">Process</button>
+        </div>
+      </div>
+    }
+    @case ("view") {
+      <div class="offset-md-3 col-md-6">
+        <div class="form-group">
+          <label for="">Select a Database: *</label>
+          <br>
+          <select [(ngModel)]="databaseName" name="databaseName" id="databaseName" class="form-control" (change)="getViews($event)">
+            @for (database of databaseList; track database) {
+              <option>{{database}}</option>
+            }
+          </select>
+        </div>
+        <br>
+        <div class="form-group">
+          <label for="">Select the view: *</label>
+          <br>
+          <select [(ngModel)]="viewName" name="viewName" id="viewName" class="form-control">
+            @for (view of viewList; track view) {
+              <option>{{view}}</option>
+            }
+          </select>
+          <br>
+          <button class="btn-outline-success btn" (click)="processView()" style="width: 125px;">Process</button>
         </div>
       </div>
     }
