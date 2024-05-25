@@ -9,6 +9,7 @@ import { InsertComponent } from './Components/insert/insert.component';
 import { MainComponent } from './main/main.component';
 import { CreateViewComponent } from './Components/create-view/create-view.component';
 import { CreateIndexComponent } from './Components/create-index/create-index.component';
+import { SelectComponent } from './Components/select/select.component';
 
 const routes: Routes = [
   { path: 'create_table', component: CreateTableComponent },
@@ -19,6 +20,7 @@ const routes: Routes = [
   { path: 'truncate_table', component: TruncateTableComponent},
   { path: 'create_view' , component: CreateViewComponent},
   { path: 'create_index' , component: CreateIndexComponent},
+  { path:'select',component:SelectComponent},
   { path: '', component: MainComponent},
 ];
 

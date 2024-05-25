@@ -59,6 +59,7 @@ export class CreateViewComponent implements OnInit {
   }
 
   getDropDowns() {
+    this.attributes = []
     for (let i = 0; i < this.number; i++) {
       this.attributes.push({ position: 'Attribute ' + (i + 1), attribute: '' });
     }
@@ -79,7 +80,7 @@ export class CreateViewComponent implements OnInit {
       string += this.attributes[i].attribute;
       string += this.attributes.length - i == 1 ? ' ' : ', ';
     }
-    string += 'from ' + this.tableName + '; ';
+    string += 'from ' + this.tableName + ';';
     return string;
   }
 }

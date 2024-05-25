@@ -15,6 +15,7 @@ import { FormsModule } from '@angular/forms';
 import { InsertModule } from './Components/insert/insert.module';
 import { CreateViewModule } from './Components/create-view/create-view.module';
 import { CreateIndexModule } from './Components/create-index/create-index.module';
+import { SelectModule } from './Components/select/select.module';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,8 @@ import { CreateIndexModule } from './Components/create-index/create-index.module
     InsertModule,
     TruncateTableModule,
     CreateViewModule,
-    CreateIndexModule
+    CreateIndexModule,
+    SelectModule
   ],
   providers: [
     provideClientHydration()
