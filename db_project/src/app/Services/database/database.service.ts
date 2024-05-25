@@ -65,9 +65,12 @@ export class DatabaseService {
     return this.http.get<any>(this.url+"/list-users");
   }
 
-  select(databaseName: string, sqlQuery: string): Observable<any[]> {
-    const url = `${this.url}/select?databaseName=${databaseName}&sqlQuery=${encodeURIComponent(sqlQuery)}`;
-    return this.http.get<any[]>(url);
+  select(databaseName: String, sqlQuery: string): Observable<any[]> {
+    return this.http.get<any[]>(`${this.url}/select?databaseName=${databaseName}&sqlQuery=${encodeURIComponent(sqlQuery)}`);
+  }
+
+  getViews(databaseName: String): Observable<any[]> {
+    return this.http.get<any[]>(`${this.url}/list-views/${databaseName}`);
   }
 
 }
