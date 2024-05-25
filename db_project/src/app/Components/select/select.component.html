@@ -1,0 +1,102 @@
+<div class="container mt-5">
+  <div class="row">
+    &nbsp;&nbsp;&nbsp;
+    <button class="btn-outline-primary btn btn-block" (click)="display('simple')" style="width: 150px;">Simple</button>
+    &nbsp;
+    <button class="btn-outline-primary btn btn-block" (click)="display('complex')" style="width: 150px;">Complex</button>
+    &nbsp;
+    <button class="btn-outline-primary btn btn-block" (click)="display('complex')" style="width: 150px;">View</button>
+  </div>
+  <hr><br>
+  @switch (option) {
+    @case("simple"){
+      <div class="offset-md-3 col-md-6">
+        <div class="form-group">
+          <label for="">Select the database you want to work with: *</label>
+          <br>
+          <select [(ngModel)]="databaseName" name="databaseName" id="databaseName" class="form-control" (change)="getTables($event)">
+            @for (database of databaseList; track database) {
+              <option>{{database}}</option>
+            }
+          </select>
+        </div>
+        <br>
+        <div class="form-group">
+          <label for="">Select the table you want to work with: *</label>
+          <br>
+          <select [(ngModel)]="tableName" name="tableName" id="tableName" class="form-control" (change)="getAttributes($event)">
+            @for (table of tableList; track table) {
+              <option>{{table}}</option>
+            }
+          </select>
+        </div>
+        <br>
+        <div class="form-group">
+          <label for="">Indicate the number of attributes you want to see: *</label>
+          <input [(ngModel)]="numberElements" type="number" name="numberElements" class="form-control">
+          <br>
+          <button class="btn-outline-success btn" style="width: 125px;" (click)="getDropDowns()">Confirm</button>
+        </div>
+        <br>
+        <hr>
+        <br>
+        <div class="form-group">
+          @for (attribute of attributesSelected; track attribute) {
+            <label for="">{{attribute.position}}</label>
+            <select [(ngModel)]="attribute.attribute" name="attribute.attribute" id="attribute.attribute" class="form-control">
+              @for (option of attributeList; track option) {
+                <option>{{option}}</option>
+              }
+            </select>
+          }
+          <br>
+          <button class="btn-outline-success btn" (click)="processSimple()" style="width: 125px;">Process</button>
+        </div>
+      </div>
+    }
+    @case ("complex") {
+      <div class="offset-md-3 col-md-6">
+        <div class="form-group">
+          <label for="">Select the database you want to work with: *</label>
+          <br>
+          <select [(ngModel)]="databaseName" name="databaseName" id="databaseName" class="form-control" (change)="getTables($event)">
+            @for (database of databaseList; track database) {
+              <option>{{database}}</option>
+            }
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="">Enter a select sentence:</label>
+          <input [(ngModel)]="sentence" type="text" class="form-control">
+          <br>
+          <button class="btn-outline-success btn" (click)="processComplex()" style="width: 125px;">Process</button>
+        </div>
+      </div>
+    }
+  }
+
+  @if (data.length > 0) {
+    <div class="table-responsive mt-5">
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            @for (column of columns; track column) {
+              <th>{{ column }}</th>
+            }
+          </tr>
+        </thead>
+        <tbody>
+          @for (row of data; track row) {
+            <tr>
+              @for (column of columns; track column) {
+                <td>{{ row[column] }}</td>
+              }
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  }
+
+</div>
+<br><br><br>
