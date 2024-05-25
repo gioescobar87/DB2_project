@@ -49,6 +49,10 @@ export class DatabaseService {
     return this.http.post<Database>(this.url+"/drop-table",sentence);
   }
 
+  dropView(sentence:String){
+    return this.http.post<Database>(this.url+"/drop-view",sentence);
+  }
+
   truncateTable(sentence:String){
     return this.http.post<Database>(this.url+"/truncate-table",sentence);
   }
