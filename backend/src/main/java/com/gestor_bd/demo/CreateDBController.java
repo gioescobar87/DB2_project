@@ -89,6 +89,17 @@ public class CreateDBController {
     }
   }
 
+  @PostMapping("/drop-view")
+  @Transactional
+  public String dropView(@RequestBody String sqlQuery) {
+    try {
+      entityManager.createNativeQuery(sqlQuery).executeUpdate();
+      return "View dropped successfully";
+    } catch (Exception e) {
+      return "Error dropping view " + e.getMessage();
+    }
+  }
+
   @PostMapping("/truncate-table")
   @Transactional
   public String truncateTable(@RequestBody String sqlQuery) {
