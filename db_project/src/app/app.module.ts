@@ -17,6 +17,7 @@ import { CreateViewModule } from './Components/create-view/create-view.module';
 import { CreateIndexModule } from './Components/create-index/create-index.module';
 import { SelectModule } from './Components/select/select.module';
 import { DropViewModule } from './drop-view/drop-view.module';
+import { DropIndexModule } from './Components/drop-index/drop-index.module';
 
 @NgModule({
   declarations: [
@@ -40,7 +41,8 @@ import { DropViewModule } from './drop-view/drop-view.module';
     CreateViewModule,
     CreateIndexModule,
     SelectModule,
-    DropViewModule
+    DropViewModule,
+    DropIndexModule
   ],
   providers: [
     provideClientHydration()

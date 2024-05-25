@@ -1,5 +1,5 @@
 import { TruncateTableComponent } from './truncate-table/truncate-table.component';
-import { NgModule } from '@angular/core';
+import { NgModule, Component } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { CreateTableComponent } from './Components/create-table/create-table.component';
 import { AlterTableComponent } from './Components/alter-table/alter-table.component';
@@ -11,23 +11,25 @@ import { CreateViewComponent } from './Components/create-view/create-view.compon
 import { CreateIndexComponent } from './Components/create-index/create-index.component';
 import { SelectComponent } from './Components/select/select.component';
 import { DropViewComponent } from './drop-view/drop-view.component';
+import { DropIndexComponent } from './Components/drop-index/drop-index.component';
 
 const routes: Routes = [
   { path: 'create_table', component: CreateTableComponent },
   { path: 'alter_table', component: AlterTableComponent },
   { path: 'drop_table', component: DropTableComponent },
-  { path: 'database', component: DatabaseComponent},
-  { path: 'insert', component: InsertComponent},
-  { path: 'truncate_table', component: TruncateTableComponent},
-  { path: 'create_view' , component: CreateViewComponent},
-  { path: 'create_index' , component: CreateIndexComponent},
-  { path:'select',component:SelectComponent},
-  { path:'drop_view',component:DropViewComponent},
-  { path: '', component: MainComponent},
+  { path: 'database', component: DatabaseComponent },
+  { path: 'insert', component: InsertComponent },
+  { path: 'truncate_table', component: TruncateTableComponent },
+  { path: 'create_view', component: CreateViewComponent },
+  { path: 'create_index', component: CreateIndexComponent },
+  { path: 'select', component: SelectComponent },
+  { path: 'drop_view', component: DropViewComponent },
+  { path: 'drop_index', component: DropIndexComponent },
+  { path: '', component: MainComponent },
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

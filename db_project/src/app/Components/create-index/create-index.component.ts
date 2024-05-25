@@ -63,7 +63,7 @@ export class CreateIndexComponent implements OnInit {
       this.tableName +
       ' (' +
       this.attributeName +
-      '); ';
+      ');';
     return sentence;
   }
 }

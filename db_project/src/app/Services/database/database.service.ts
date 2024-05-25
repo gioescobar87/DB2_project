@@ -53,6 +53,10 @@ export class DatabaseService {
     return this.http.post<Database>(this.url+"/drop-view",sentence);
   }
 
+  dropIndex(sentence:String){
+    return this.http.post<Database>(this.url+"/drop-view",sentence);
+  }
+
   truncateTable(sentence:String){
     return this.http.post<Database>(this.url+"/truncate-table",sentence);
   }
@@ -77,4 +81,7 @@ export class DatabaseService {
     return this.http.get<any[]>(`${this.url}/list-views/${databaseName}`);
   }
 
+  getIndexes(databaseName: String, tableName: String): Observable<any[]> {
+    return this.http.get<any[]>(`${this.url}/list-indexes/${databaseName}/${tableName}`);
+  }
 }
