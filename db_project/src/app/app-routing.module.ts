@@ -10,6 +10,7 @@ import { MainComponent } from './main/main.component';
 import { CreateViewComponent } from './Components/create-view/create-view.component';
 import { CreateIndexComponent } from './Components/create-index/create-index.component';
 import { SelectComponent } from './Components/select/select.component';
+import { DropViewComponent } from './drop-view/drop-view.component';
 
 const routes: Routes = [
   { path: 'create_table', component: CreateTableComponent },
@@ -21,6 +22,7 @@ const routes: Routes = [
   { path: 'create_view' , component: CreateViewComponent},
   { path: 'create_index' , component: CreateIndexComponent},
   { path:'select',component:SelectComponent},
+  { path:'drop_view',component:DropViewComponent},
   { path: '', component: MainComponent},
 ];
 

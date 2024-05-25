@@ -77,6 +77,6 @@ export class CreateTableComponent implements OnInit {
         this.attributeList[i].size;
       this.sentence += this.attributeList.length - i > 1 ? '),' : ')';
     }
-    this.sentence += ');';
+    this.sentence += '); ';
   }
 }
