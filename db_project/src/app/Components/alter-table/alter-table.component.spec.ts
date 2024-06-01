@@ -1,5 +1,4 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { AlterTableComponent } from './alter-table.component';
 
 describe('AlterTableComponent', () => {
@@ -10,8 +9,10 @@ describe('AlterTableComponent', () => {
     await TestBed.configureTestingModule({
       declarations: [AlterTableComponent]
     })
-    .compileComponents();
-    
+      .compileComponents();
+  });
+
+  beforeEach(() => {
     fixture = TestBed.createComponent(AlterTableComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
