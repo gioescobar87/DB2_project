@@ -1,1 +1,42 @@
-<p>alter-table works!</p>
+<div class="container mt-5">
+  <div class="row">
+    <div class="col-md-6 offset-md-3">
+      <div class="form-group">
+        <label for="exampleSelect">Select the database you want to work on: *</label>
+        <br>
+        <select (change)="getTables()" [(ngModel)]="databaseName" class="form-control" id="exampleSelect">
+          @for (database of databaseList; track database) {
+          <option>{{database}}</option>
+          }
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="exampleSelect">Select the table you want to work on: *</label>
+        <br>
+        <select [(ngModel)]="tableName" class="form-control" id="exampleSelect">
+          @for (database of tableList; track database) {
+          <option>{{database}}</option>
+          }
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="exampleSelect">Select an action: *</label>
+        <br>
+        <select (change)="getTables()" [(ngModel)]="action" class="form-control" id="exampleSelect">
+          @for (database of tableAction; track database) {
+          <option>{{database}}</option>
+          }
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="input3">Indicate the number of attributes: *</label>
+        <div>
+          <input [(ngModel)]="fieldsNumber" type="text" class="form-control" id="input3"
+            placeholder="Enter value for input 3"><br>
+          <button class="btn btn-primary" type="button"
+            (click)="enableFields(fieldsNumber)">&nbsp;Confirm&nbsp;</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
