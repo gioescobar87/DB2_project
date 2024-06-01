@@ -62,6 +62,9 @@ export class AlterTableComponent {
   }
 
   enableFields(quantity: number) {
+   console.log(quantity);
+   console.log(this.databaseName);
+   console.log(this.tableName);
     this.attributeList = [];
     for (let index = 0; index < quantity; index++) {
       this.attributeList.push({
@@ -71,12 +74,28 @@ export class AlterTableComponent {
         size: null,
       });
     }
-  }
+    /*this.servicio
+          .dropTable('use ' + this.databaseName + ';')
+          .subscribe((item) => {});*/
+        this.servicio
+          .dropTable('drop table ' + this.tableName)
+          .subscribe((item) => {});
+        alert('Table was droped successfully');
+        //window.location.reload();
+      }
 
   removeTable() {
     if (this.action === 'removing_column') {
-      // Aquí puedes realizar la lógica para eliminar la tabla seleccionada
-      this.tableName = ''; // Limpiar el nombre de la tabla
+        /*this.servicio
+          .dropTable('use ' + this.databaseName + ';')
+          .subscribe((item) => {});
+        this.servicio
+          .dropTable('drop table ' + this.tableName)
+          .subscribe((item) => {});
+        alert('Table was droped successfully');
+        window.location.reload();*/
+        console.log("")
+      this.tableName = ''; 
     }
   }
 

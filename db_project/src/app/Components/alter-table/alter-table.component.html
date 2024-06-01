@@ -40,39 +40,3 @@
     </div>
   </div>
 </div>
-
-<hr>
-
-<div class="container mt-3">
-  <div class="row">
-    <div class="col-md-6 offset-md-3">
-      <form action="">
-        <div class="form-group">
-          <label for="input1">Table name: *</label>
-          <input [(ngModel)]="tableName" name="tableName" type="text" class="form-control" id="input1"
-            placeholder="Enter table name" required>
-        </div>
-        @for (attribute of attributeList; track attribute) {
-        <hr>
-        <div class="form-group">
-          <label for="input2" style="font-weight: bold;">{{attribute.attribute}}: *</label>
-          <input [(ngModel)]="attribute.name" name="attribute.name" type="text" class="form-control" id="input2"
-            placeholder="Enter attribute name" required>
-          <label for="input2">Attribute type: *</label>
-          <select [(ngModel)]="attribute.type" name="attribute.type" class="form-control" id="dataType">
-            @for (item of dataType; track item) {
-            <option>{{item}}</option>
-            }
-          </select>
-          <label for="input2">Attribute size: *</label>
-          <input [(ngModel)]="attribute.size" name="attribute.size" type="number" class="form-control" id="input2"
-            placeholder="Enter max. size of values" required>
-        </div>
-        }
-        <br>
-        <button class="btn btn-outline-success" type="button" (click)="captureData()">&nbsp;Crear tabla&nbsp;</button>
-      </form>
-    </div>
-  </div>
-</div>
-<br><br><br>
